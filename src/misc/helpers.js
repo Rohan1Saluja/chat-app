@@ -6,6 +6,18 @@ export function getNameInitials(name) {
   return splitName[0][0];
 }
 
+// !------------------------ Transform To Array ------------------------
+
+export function transformToArr(snapVal) {
+  return snapVal ? Object.keys(snapVal) : [];
+}
+// !------------------------ Transform To Array ------------------------
+
+// ?------
+// ?------
+
+// !------------------------ Transform To Array With ID ------------------------
+
 export function transformToArrWithId(snapVal) {
   return snapVal
     ? Object.keys(snapVal).map((roomId) => {
@@ -13,6 +25,12 @@ export function transformToArrWithId(snapVal) {
       })
     : [];
 }
+// !------------------------ Transform To Array with ID ------------------------
+
+// ?------
+// ?------
+
+// !------------------------- Get User Updates -------------------------
 
 export async function getUserUpdates(userId, keyToUpdate, value, db) {
   const updates = {};
@@ -42,3 +60,4 @@ export async function getUserUpdates(userId, keyToUpdate, value, db) {
 
   return updates;
 }
+// !------------------------- Get User Updates -------------------------
