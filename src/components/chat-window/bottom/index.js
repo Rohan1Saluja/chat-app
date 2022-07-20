@@ -52,8 +52,8 @@ const Bottom = () => {
       setInput("");
       setIsLoading(false);
     } catch (err) {
-      Alert.error(err.message);
       setIsLoading(false);
+      Alert.error(err.message);
     }
   };
 
@@ -71,7 +71,7 @@ const Bottom = () => {
       <InputGroup>
         <Input
           placeholder="Write a new message here..."
-          val={input}
+          value={input}
           onChange={onInputChange}
           onKeyDown={onKeyDown}
         />
