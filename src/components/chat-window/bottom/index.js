@@ -5,6 +5,8 @@ import { useParams } from "react-router";
 import { useProfile } from "../../../context/profile.context";
 import { database } from "../../../misc/firebase";
 
+// !----------------------- Creating Message object for database -----------------------
+
 function assembleMessage(profile, chatId) {
   return {
     roomId: chatId,
@@ -15,8 +17,13 @@ function assembleMessage(profile, chatId) {
       ...(profile.avatar ? { avatar: profile.avatar } : {}),
     },
     createdAt: firebase.database.ServerValue.TIMESTAMP,
+    likeCount: 0,
   };
 }
+
+// !----------------------- Creating Message object for database -----------------------
+// ?-----
+// ?-----
 
 // !------------------------ Export Function Logic ------------------------
 const Bottom = () => {
