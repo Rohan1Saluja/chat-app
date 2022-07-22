@@ -7,6 +7,9 @@ import ProfileInfoBtnModal from "./ProfileInfoBtnModal";
 import { useCurrentRoom } from "../../../context/current-room.context";
 import { auth } from "../../../misc/firebase";
 import { useHover } from "../../../misc/custom-hooks";
+import IconBtnControl from "./IconBtnControl";
+
+// !------------------------- Export Function Logic -------------------------
 
 const MessageItem = ({ message, handleAdmin }) => {
   const { author, createdAt, text } = message;
@@ -18,6 +21,8 @@ const MessageItem = ({ message, handleAdmin }) => {
   const isMsgAuthorAdmin = admins.includes(author.uid);
   const isAuthor = auth.currentUser.uid === author.uid;
   const canGrantAdmin = isAdmin && !isAuthor;
+
+  // !------------------------- Export Function Logic -------------------------
 
   return (
     <li
@@ -48,6 +53,16 @@ const MessageItem = ({ message, handleAdmin }) => {
         <TimeAgo
           datetime={createdAt}
           className="ml-2 font-normal text-black-45"
+        />
+
+        <IconBtnControl
+          // eslint-disable-next-line no-constant-condition
+          {...(true ? { color: "red" } : {})}
+          isVisible
+          iconName="heart"
+          tooltip="Like this Message"
+          onClick={() => {}}
+          badgeContent={5}
         />
       </div>
 
