@@ -20,7 +20,14 @@ const ChatRoomList = ({ aboveElHeight }) => {
       activeKey={location.pathname}
     >
       {!rooms && (
-        <Loader center vertical content="Loading" speed="slow" size="md" />
+        <Loader
+          center
+          vertical
+          content="Loading"
+          speed="slow"
+          size="md"
+          className="text-antique"
+        />
       )}
       {rooms &&
         rooms.length > 0 &&
