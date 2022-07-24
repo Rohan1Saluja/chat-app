@@ -29,14 +29,14 @@ const Messages = () => {
   // TODO ------------------- Load Messages -------------------
 
   const loadMessages = useCallback(
-    (limitToLast) => {
+    (limitToUse) => {
       const node = selfRef.current;
       messagesRef.off();
 
       messagesRef
         .orderByChild("roomId")
         .equalTo(chatId)
-        .limitToLast(limitToLast || PAGE_SIZE)
+        .limitToLast(limitToUse || PAGE_SIZE)
         .on("value", (snap) => {
           const data = transformToArrWithId(snap.val());
 
@@ -75,7 +75,7 @@ const Messages = () => {
 
     setTimeout(() => {
       node.scrollTop = node.scrollHeight;
-    }, 200);
+    }, 300);
 
     return () => {
       messagesRef.off("value");
