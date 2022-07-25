@@ -1,5 +1,5 @@
 /* eslint-disable object-curly-spacing */
-const functions = require("firebase-functions");
+// const functions = require("firebase-functions");
 
 const admin = require("firebase-admin");
 const serviceAccount = require("./service-account.json");
