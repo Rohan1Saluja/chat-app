@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
+import { flushSync } from "react-dom";
 import { Alert, Button } from "rsuite";
 import { auth, database, storage } from "../../../misc/firebase";
 import { groupBy, transformToArrWithId } from "../../../misc/helpers";
@@ -10,7 +11,9 @@ const messagesRef = database.ref("/messages");
 
 function shouldScrollToBottom(node, threshold = 30) {
   const percentage =
-    (100 * node.scrollTop) / (node.scrollHeight - node.clientHeight) || 0;
+    Math.abs(
+      (100 * node.scrollTop) / (node.scrollHeight - node.clientHeight)
+    ) || 0;
 
   return percentage > threshold;
 }
@@ -40,11 +43,19 @@ const Messages = () => {
         .on("value", (snap) => {
           const data = transformToArrWithId(snap.val());
 
-          setMessages(data);
+          flushSync(() => {
+            // updates within flushSync
+            // are "awaited" before next lines of code
+            setMessages(data);
+          });
 
           if (shouldScrollToBottom(node)) {
             node.scrollTop = node.scrollHeight;
+            // node.lastElementChild?.scrollIntoView();
           }
+
+          // const lastChild = node.lastElementChild;
+          // lastChild?.scrollIntoView();
         });
 
       setLimit((p) => p + PAGE_SIZE);
@@ -63,7 +74,7 @@ const Messages = () => {
     setTimeout(() => {
       const newHeight = node.scrollHeight;
       node.scrollTop = newHeight - oldHeight;
-    }, 200);
+    }, 390);
   }, [loadMessages, limit]);
 
   // TODO ---------------------- Use Effect ----------------------
@@ -75,7 +86,7 @@ const Messages = () => {
 
     setTimeout(() => {
       node.scrollTop = node.scrollHeight;
-    }, 300);
+    }, 330);
 
     return () => {
       messagesRef.off("value");
