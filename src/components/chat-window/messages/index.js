@@ -9,11 +9,11 @@ import MessageItem from "./MessageItem";
 const PAGE_SIZE = 15;
 const messagesRef = database.ref("/messages");
 
-function shouldScrollToBottom(node, threshold = 30) {
+function shouldScrollToBottom(node, threshold = 12) {
   const percentage =
-    Math.abs(
-      (100 * node.scrollTop) / (node.scrollHeight - node.clientHeight)
-    ) || 0;
+    (100 * node.scrollTop) / (node.scrollHeight - node.clientHeight) || 0;
+
+  // console.log("percentage->", percentage);
 
   return percentage > threshold;
 }

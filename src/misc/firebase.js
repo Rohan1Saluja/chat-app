@@ -3,6 +3,9 @@ import "firebase/auth";
 import "firebase/database";
 import "firebase/storage";
 import "firebase/messaging";
+import "firebase/functions";
+import { Notification as Toast } from "rsuite";
+import { isLocalhost } from "./helpers";
 
 const config = {
   apiKey: "AIzaSyAwLrEufpRMHseovDFsmKkT5g2MAL8LZq4",
@@ -19,6 +22,7 @@ const app = firebase.initializeApp(config);
 export const auth = app.auth();
 export const database = app.database();
 export const storage = app.storage();
+export const functions = app.functions("asia-south1");
 
 export const messaging = firebase.messaging.isSupported()
   ? app.messaging()
@@ -28,7 +32,12 @@ if (messaging) {
   messaging.usePublicVapidKey(
     "BIdYv60QLO444Rf-K1d8iK28-_FfQutAsIG4MlXfc17HHL4A8UE4nbOj4sQNCsFjRE1iMu5_SPtCNyvtSWG4t-U"
   );
-  messaging.onMessage((data) => {
-    console.log(data);
+  messaging.onMessage(({ notification }) => {
+    const { title, body } = notification;
+    Toast.info({ title, description: body, duration: 0 });
   });
+}
+
+if (isLocalhost) {
+  functions.useFunctionsEmulator("http://localhost:5001");
 }
