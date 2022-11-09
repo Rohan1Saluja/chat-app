@@ -35,7 +35,7 @@ const SignIn = () => {
             <Panel>
               <div className="text-center">
                 <h2>Welcome to Chat</h2>
-                <p>Progressive Chat Platfrom for neophytes</p>
+                <p>Progressive Chat Platform for neophytes</p>
               </div>
               <div className="mt-3">
                 <Button block color="blue" onClick={onFacebookSignIn}>
